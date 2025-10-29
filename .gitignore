@@ -1,0 +1,5 @@
+*.backup
+*.project
+*.precompilecache
+*.opt
+*.DFR
