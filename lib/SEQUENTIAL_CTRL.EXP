@@ -9,31 +9,61 @@ VAR_INPUT
 	xT_0_1	:	BOOL;
 	xT_1_2	:	BOOL;
 	xT_2_3	:	BOOL;
-	xT_3_0	:	BOOL;
+	xT_3_4	:	BOOL;
+	xT_4_5	:	BOOL;
+	xT_5_6	:	BOOL;
+	xT_6_7	:	BOOL;
+	xT_7_8	:	BOOL;
+	xT_8_0	:	BOOL;
+	xJ_4_7		:	BOOL;
 END_VAR
 VAR_OUTPUT
-	_xSTEP		:	INT;
+	_iSTATE		:	INT;
 END_VAR
 VAR
-	ctu_step		:	CTU;
+	rt_incr1		:	R_TRIG;
+	iState			:	INT;
+	iPrevState		:	INT;
+	iAdd			:	INT;
+	iAdd3			:	INT;
 END_VAR
 (* @END_DECLARATION := '0' *)
 _FBD_BODY
-_NETWORKS : 1
+_NETWORKS : 4
 _NETWORK
 
 _COMMENT
-''
+'Writes the current state to a local variable.'
 _END_COMMENT
-_FUNCTIONBLOCK
-ctu_step
-_BOX_EXPR : 3
-_OPERATOR
-_BOX_EXPR : 5
+_ASSIGN
 _OPERAND
 _EXPRESSION
 _POSITIV
-ctu_step.CV
+iState
+_EXPRESSION
+_POSITIV
+_OUTPUTS : 1
+_OUTPUT
+_POSITIV
+_NO_SET
+iPrevState
+_NETWORK
+
+_COMMENT
+'Select the transition input for the current state, detect its rising edge, and convert it to an INT (true -> 1, false -> 0) for the next-step calculation.  $NIf the current step is 4, check whether the jump input is active and only forward it to the MUX if the jump is **not** active.$N'
+_END_COMMENT
+_ASSIGN
+_OPERATOR
+_BOX_EXPR : 1
+_FUNCTIONBLOCK
+rt_incr1
+_BOX_EXPR : 1
+_OPERATOR
+_BOX_EXPR : 10
+_OPERAND
+_EXPRESSION
+_POSITIV
+iState
 _OPERAND
 _EXPRESSION
 _POSITIV
@@ -49,34 +79,152 @@ xT_2_3
 _OPERAND
 _EXPRESSION
 _POSITIV
-xT_3_0
-_EXPRESSION
-_POSITIV
-MUX
+xT_3_4
 _OPERATOR
 _BOX_EXPR : 2
 _OPERAND
 _EXPRESSION
 _POSITIV
-xRESET
+xT_4_5
+_OPERAND
+_EXPRESSION
+_NEGATIV
+xJ_4_7
+_EXPRESSION
+_POSITIV
+AND
 _OPERAND
 _EXPRESSION
 _POSITIV
-ctu_step.Q
+xT_5_6
+_OPERAND
 _EXPRESSION
 _POSITIV
-OR
+xT_6_7
+_OPERAND
+_EXPRESSION
+_POSITIV
+xT_7_8
+_OPERAND
+_EXPRESSION
+_POSITIV
+xT_8_0
+_EXPRESSION
+_POSITIV
+MUX
+_EXPRESSION
+_POSITIV
+R_TRIG
+_OUTPUTS : 0
+_EXPRESSION
+_POSITIV
+BOOL_TO_INT
+_EXPRESSION
+_POSITIV
+_OUTPUTS : 1
+_OUTPUT
+_POSITIV
+_NO_SET
+iAdd
+_NETWORK
+
+_COMMENT
+'If current step ist 4 and jump input is active, write 3 to a local variable for the next-step calculation (true ->  3, false -> 0).'
+_END_COMMENT
+_ASSIGN
+_OPERATOR
+_BOX_EXPR : 2
+_OPERATOR
+_BOX_EXPR : 1
+_OPERATOR
+_BOX_EXPR : 2
+_OPERATOR
+_BOX_EXPR : 2
+_OPERAND
+_EXPRESSION
+_POSITIV
+iState
 _OPERAND
 _EXPRESSION
 _POSITIV
 4
 _EXPRESSION
 _POSITIV
-CTU
+EQ
+_OPERAND
+_EXPRESSION
+_POSITIV
+xJ_4_7
+_EXPRESSION
+_POSITIV
+AND
+_EXPRESSION
+_POSITIV
+BOOL_TO_INT
+_OPERAND
+_EXPRESSION
+_POSITIV
+3
+_EXPRESSION
+_POSITIV
+MUL
+_EXPRESSION
+_POSITIV
 _OUTPUTS : 1
 _OUTPUT
 _POSITIV
 _NO_SET
-_xSTEP
+iAdd3
+_NETWORK
+
+_COMMENT
+'Add either 1 or 3 to local variable for previous state (only one can be active at once, since jump always sets one variable to 0) and depending if reset input is active, write the result or 0 to current-state variable and to the state output. '
+_END_COMMENT
+_ASSIGN
+_ASSIGN
+_OPERATOR
+_BOX_EXPR : 3
+_OPERAND
+_EXPRESSION
+_POSITIV
+xRESET
+_OPERATOR
+_BOX_EXPR : 3
+_OPERAND
+_EXPRESSION
+_POSITIV
+iPrevState
+_OPERAND
+_EXPRESSION
+_POSITIV
+iAdd
+_OPERAND
+_EXPRESSION
+_POSITIV
+iAdd3
+_EXPRESSION
+_POSITIV
+ADD
+_OPERAND
+_EXPRESSION
+_POSITIV
+0
+_EXPRESSION
+_POSITIV
+SEL
+_EXPRESSION
+_POSITIV
+_OUTPUTS : 1
+_OUTPUT
+_POSITIV
+_NO_SET
+iState
+_EXPRESSION
+_POSITIV
+_OUTPUTS : 1
+_OUTPUT
+_POSITIV
+_NO_SET
+_iSTATE
 
 END_FUNCTION_BLOCK
