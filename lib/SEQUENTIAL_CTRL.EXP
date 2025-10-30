@@ -29,9 +29,9 @@ VAR
 END_VAR
 (* @END_DECLARATION := '0' *)
 _FBD_BODY
-_NETWORKS : 4
+_NETWORKS : 5
 _NETWORK
-
+writePreviousState
 _COMMENT
 'Writes the current state to a local variable.'
 _END_COMMENT
@@ -48,7 +48,32 @@ _POSITIV
 _NO_SET
 iPrevState
 _NETWORK
-
+initTemps
+_COMMENT
+'Initialize temp variables iAdd and iAdd3 as 0 in every cycle'
+_END_COMMENT
+_ASSIGN
+_ASSIGN
+_OPERAND
+_EXPRESSION
+_POSITIV
+0
+_EXPRESSION
+_POSITIV
+_OUTPUTS : 1
+_OUTPUT
+_POSITIV
+_NO_SET
+iAdd3
+_EXPRESSION
+_POSITIV
+_OUTPUTS : 1
+_OUTPUT
+_POSITIV
+_NO_SET
+iAdd
+_NETWORK
+selectTransitionVariable
 _COMMENT
 'Select the transition input for the current state, detect its rising edge, and convert it to an INT (true -> 1, false -> 0) for the next-step calculation.  $NIf the current step is 4, check whether the jump input is active and only forward it to the MUX if the jump is **not** active.$N'
 _END_COMMENT
@@ -127,7 +152,7 @@ _POSITIV
 _NO_SET
 iAdd
 _NETWORK
-
+jump
 _COMMENT
 'If current step ist 4 and jump input is active, write 3 to a local variable for the next-step calculation (true ->  3, false -> 0).'
 _END_COMMENT
@@ -176,7 +201,7 @@ _POSITIV
 _NO_SET
 iAdd3
 _NETWORK
-
+calcNextState
 _COMMENT
 'Add either 1 or 3 to local variable for previous state (only one can be active at once, since jump always sets one variable to 0) and depending if reset input is active, write the result or 0 to current-state variable and to the state output. '
 _END_COMMENT
@@ -184,10 +209,28 @@ _ASSIGN
 _ASSIGN
 _OPERATOR
 _BOX_EXPR : 3
+_OPERATOR
+_BOX_EXPR : 2
 _OPERAND
 _EXPRESSION
 _POSITIV
 xRESET
+_OPERATOR
+_BOX_EXPR : 2
+_OPERAND
+_EXPRESSION
+_POSITIV
+iState
+_OPERAND
+_EXPRESSION
+_POSITIV
+9
+_EXPRESSION
+_POSITIV
+EQ
+_EXPRESSION
+_POSITIV
+OR
 _OPERATOR
 _BOX_EXPR : 3
 _OPERAND
