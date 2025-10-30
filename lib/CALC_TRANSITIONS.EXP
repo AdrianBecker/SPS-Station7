@@ -36,9 +36,9 @@ END_VAR
 _FBD_BODY
 _NETWORKS : 9
 _NETWORK
-
+start
 _COMMENT
-''
+'The process may only start if a part is in the starting position, the drill is in its initial position and no other part is processing.'
 _END_COMMENT
 _ASSIGN
 _OPERATOR
@@ -70,7 +70,7 @@ _POSITIV
 _NO_SET
 _xT_0_1
 _NETWORK
-
+punchReached
 _COMMENT
 ''
 _END_COMMENT
@@ -96,7 +96,7 @@ _POSITIV
 _NO_SET
 _xT_1_2
 _NETWORK
-
+punchDone
 _COMMENT
 ''
 _END_COMMENT
@@ -122,7 +122,7 @@ _POSITIV
 _NO_SET
 _xT_2_3
 _NETWORK
-
+drillReached
 _COMMENT
 ''
 _END_COMMENT
@@ -148,7 +148,7 @@ _POSITIV
 _NO_SET
 _xT_3_4
 _NETWORK
-
+drillLowered
 _COMMENT
 ''
 _END_COMMENT
@@ -165,7 +165,7 @@ _POSITIV
 _NO_SET
 _xT_4_5
 _NETWORK
-
+drillComplete
 _COMMENT
 ''
 _END_COMMENT
@@ -182,7 +182,7 @@ _POSITIV
 _NO_SET
 _xT_5_6
 _NETWORK
-
+drillRaised
 _COMMENT
 ''
 _END_COMMENT
@@ -199,7 +199,7 @@ _POSITIV
 _NO_SET
 _xT_6_7
 _NETWORK
-
+endPosReached
 _COMMENT
 ''
 _END_COMMENT
@@ -225,7 +225,7 @@ _POSITIV
 _NO_SET
 _xT_7_8
 _NETWORK
-
+partLeft
 _COMMENT
 ''
 _END_COMMENT
