@@ -1,6 +1,6 @@
 
 (* @NESTEDCOMMENTS := 'Yes' *)
-(* @PATH := '' *)
+(* @PATH := '\/bib' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK CALC_FLAGS
