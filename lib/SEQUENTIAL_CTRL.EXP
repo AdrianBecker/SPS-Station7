@@ -1,6 +1,6 @@
 
 (* @NESTEDCOMMENTS := 'Yes' *)
-(* @PATH := '\/bib' *)
+(* @PATH := '\/lib' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK SEQUENTIAL_CTRL
