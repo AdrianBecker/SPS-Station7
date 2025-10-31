@@ -50,7 +50,7 @@ iPrevState
 _NETWORK
 initTemps
 _COMMENT
-'Initialize temp variables iAdd and iAdd3 as 0 in every cycle'
+'Initialize temp variables iAdd and iAdd3 as 0 in every cycle.'
 _END_COMMENT
 _ASSIGN
 _ASSIGN

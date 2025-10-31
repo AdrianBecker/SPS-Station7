@@ -5,8 +5,8 @@
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK STATION_7
 VAR_INPUT
+	xEMERGENCY								:	BOOL;
 	xPB_START									:	BOOL;
-	xPB_RESET									:	BOOL;
 	xSENSOR_ROTARY_STEP					:	BOOL;
 	xSENSOR_PART_START_POS				:	BOOL;
 	xSENSOR_PART_END_POS					:	BOOL;
@@ -45,9 +45,9 @@ END_VAR
 _FBD_BODY
 _NETWORKS : 5
 _NETWORK
-
+transitions
 _COMMENT
-''
+'Gets sensor values and calculates transitional conditions.'
 _END_COMMENT
 _FUNCTIONBLOCK
 calcTransitions
@@ -145,9 +145,9 @@ _POSITIV
 _NO_SET
 _EMPTY
 _NETWORK
-
+stateMachine
 _COMMENT
-''
+'Saves and outputs the current machine state, increments if a transitional condition is met.'
 _END_COMMENT
 _FUNCTIONBLOCK
 seqCtrl
@@ -155,7 +155,7 @@ _BOX_EXPR : 11
 _OPERAND
 _EXPRESSION
 _POSITIV
-xPB_RESET
+FALSE
 _OPERAND
 _EXPRESSION
 _POSITIV
@@ -201,14 +201,18 @@ _POSITIV
 SEQUENTIAL_CTRL
 _OUTPUTS : 0
 _NETWORK
-
+actuators
 _COMMENT
-''
+'Controls which actuators are active in each state, all actuators get turned off in case of an emergency.'
 _END_COMMENT
 _ASSIGN
 _FUNCTIONBLOCK
 actuatorCtrl
-_BOX_EXPR : 2
+_BOX_EXPR : 3
+_OPERAND
+_EXPRESSION
+_POSITIV
+xEMERGENCY
 _OPERAND
 _EXPRESSION
 _POSITIV
@@ -216,7 +220,7 @@ seqCtrl._iSTATE
 _OPERAND
 _EXPRESSION
 _POSITIV
-???
+T#50ms
 _EXPRESSION
 _POSITIV
 ACTUATOR_CTRL
@@ -249,9 +253,9 @@ _POSITIV
 _NO_SET
 _xROTARY_MOTOR
 _NETWORK
-
+flags
 _COMMENT
-''
+'Sets various flags for communication with other stations and between POUs of this station.'
 _END_COMMENT
 _FUNCTIONBLOCK
 calcFlags
@@ -263,7 +267,7 @@ seqCtrl._iSTATE
 _OPERAND
 _EXPRESSION
 _POSITIV
-xPB_RESET
+FALSE
 _OPERAND
 _EXPRESSION
 _POSITIV
@@ -289,9 +293,9 @@ _POSITIV
 _NO_SET
 _EMPTY
 _NETWORK
-
+stateIndicator
 _COMMENT
-''
+'Lights corresponding light for each state (used mainly for debugging)'
 _END_COMMENT
 _ASSIGN
 _FUNCTIONBLOCK
