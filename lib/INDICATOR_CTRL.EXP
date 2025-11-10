@@ -7,6 +7,7 @@ FUNCTION_BLOCK INDICATOR_CTRL
 VAR_INPUT
 	iSTATE									:	INT;
 	xEMERGENCY						:	BOOL;
+	xEMERGENCY_HALT					:	BOOL;
 	xSENSOR_PART_START_POS		:	BOOL;
 	xSENSOR_DRILL_UPPER_LIMIT	:	BOOL;
 END_VAR
@@ -35,7 +36,7 @@ _NETWORKS : 13
 _NETWORK
 
 _COMMENT
-'Clock needs to run on emergency or if the state is 0 (i.e. if start is possible.'
+'Clock needs to run on emergency or if the state is 0 (i.e. if start is possible).'
 _END_COMMENT
 _ASSIGN
 _OPERATOR
@@ -182,6 +183,8 @@ _BOX_EXPR : 2
 _OPERATOR
 _BOX_EXPR : 2
 _OPERATOR
+_BOX_EXPR : 2
+_OPERATOR
 _BOX_EXPR : 3
 _OPERATOR
 _BOX_EXPR : 2
@@ -207,6 +210,13 @@ xSENSOR_DRILL_UPPER_LIMIT
 _EXPRESSION
 _POSITIV
 AND
+_OPERAND
+_EXPRESSION
+_POSITIV
+xEMERGENCY_HALT
+_EXPRESSION
+_POSITIV
+OR
 _OPERAND
 _EXPRESSION
 _POSITIV
