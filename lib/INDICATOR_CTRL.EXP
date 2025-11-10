@@ -5,8 +5,10 @@
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK INDICATOR_CTRL
 VAR_INPUT
-	xEMERGENCY	:	BOOL;
-	iSTATE				:	INT;
+	iSTATE									:	INT;
+	xEMERGENCY						:	BOOL;
+	xSENSOR_PART_START_POS		:	BOOL;
+	xSENSOR_DRILL_UPPER_LIMIT	:	BOOL;
 END_VAR
 VAR_OUTPUT
 	_xIND_EMERGENCY			:	BOOL;
@@ -170,13 +172,17 @@ _xIND_INIT_POS
 _NETWORK
 
 _COMMENT
-'PB start should blink if start is possible (i.e. in state 0) or should light up permanently in states other than 0 and 8 (i.e. when the machine is not in its initial position).'
+'PB start should blink if start is possible (i.e. in state 0 and part in start pos and drill fully raised) or should light up permanently in states other than 0 and 8 (i.e. when the machine is not in its initial position). Emergency turns the light off in all cases.'
 _END_COMMENT
 _ASSIGN
 _OPERATOR
 _BOX_EXPR : 2
 _OPERATOR
 _BOX_EXPR : 2
+_OPERATOR
+_BOX_EXPR : 2
+_OPERATOR
+_BOX_EXPR : 3
 _OPERATOR
 _BOX_EXPR : 2
 _OPERAND
@@ -193,6 +199,17 @@ EQ
 _OPERAND
 _EXPRESSION
 _POSITIV
+xSENSOR_PART_START_POS
+_OPERAND
+_EXPRESSION
+_POSITIV
+xSENSOR_DRILL_UPPER_LIMIT
+_EXPRESSION
+_POSITIV
+AND
+_OPERAND
+_EXPRESSION
+_POSITIV
 xClock
 _EXPRESSION
 _POSITIV
@@ -204,6 +221,13 @@ xInitPos
 _EXPRESSION
 _POSITIV
 OR
+_OPERAND
+_EXPRESSION
+_NEGATIV
+xEMERGENCY
+_EXPRESSION
+_POSITIV
+AND
 _EXPRESSION
 _POSITIV
 _OUTPUTS : 1
