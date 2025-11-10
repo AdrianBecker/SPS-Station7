@@ -103,7 +103,7 @@ calcFlags._xFLAG_BUSY
 _OPERAND
 _EXPRESSION
 _POSITIV
-startTaster
+sensor_rotaryStep
 _OPERAND
 _EXPRESSION
 _POSITIV
