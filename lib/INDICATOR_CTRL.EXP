@@ -27,8 +27,6 @@ VAR_OUTPUT
 	_xIND_STATE8				:	BOOL;
 END_VAR
 VAR
-	bl_clock	:	BLINK;
-	xClock		:	BOOL;
 	xInitPos	:	BOOL;
 END_VAR
 (* @END_DECLARATION := '0' *)
