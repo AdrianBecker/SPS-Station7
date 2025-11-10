@@ -24,6 +24,7 @@ VAR
 	rot7					:	BOOL;
 	drill4					:	BOOL;
 	drill5					:	BOOL;
+	drill6					:	BOOL;
 END_VAR
 (* @END_DECLARATION := '0' *)
 _FBD_BODY
@@ -181,9 +182,6 @@ _END_COMMENT
 _ASSIGN
 _OPERATOR
 _BOX_EXPR : 2
-_ASSIGN
-_OPERATOR
-_BOX_EXPR : 2
 _OPERAND
 _EXPRESSION
 _POSITIV
@@ -202,20 +200,6 @@ _OUTPUT
 _POSITIV
 _NO_SET
 drill5
-_OPERAND
-_EXPRESSION
-_NEGATIV
-xEMERGENCY
-_EXPRESSION
-_POSITIV
-AND
-_EXPRESSION
-_POSITIV
-_OUTPUTS : 1
-_OUTPUT
-_POSITIV
-_NO_SET
-_xDRILL_PUNCH
 _NETWORK
 
 _COMMENT
@@ -224,6 +208,7 @@ _END_COMMENT
 _ASSIGN
 _OPERATOR
 _BOX_EXPR : 2
+_ASSIGN
 _OPERATOR
 _BOX_EXPR : 2
 _OPERAND
@@ -237,6 +222,13 @@ _POSITIV
 _EXPRESSION
 _POSITIV
 EQ
+_EXPRESSION
+_POSITIV
+_OUTPUTS : 1
+_OUTPUT
+_POSITIV
+_NO_SET
+drill6
 _OPERAND
 _EXPRESSION
 _NEGATIV
@@ -298,7 +290,7 @@ EQ
 _NETWORK
 rotaryCtrl
 _COMMENT
-'Because rotary is active in multiple states and can only be assigned once.'
+'Because rotary is active in multiple states and the corresponding output can only be assigned once.'
 _END_COMMENT
 _ASSIGN
 _OPERATOR
@@ -337,13 +329,14 @@ _xROTARY_MOTOR
 _NETWORK
 drillCtrl
 _COMMENT
-'Because rotary is active in multiple states and can only be assigned once.'
+'Because drill is active in multiple states and the corresponding outputs can only be assigned once.'
 _END_COMMENT
+_ASSIGN
 _ASSIGN
 _OPERATOR
 _BOX_EXPR : 2
 _OPERATOR
-_BOX_EXPR : 2
+_BOX_EXPR : 3
 _OPERAND
 _EXPRESSION
 _POSITIV
@@ -352,6 +345,10 @@ _OPERAND
 _EXPRESSION
 _POSITIV
 drill5
+_OPERAND
+_EXPRESSION
+_POSITIV
+drill6
 _EXPRESSION
 _POSITIV
 OR
@@ -362,6 +359,13 @@ xEMERGENCY
 _EXPRESSION
 _POSITIV
 AND
+_EXPRESSION
+_POSITIV
+_OUTPUTS : 1
+_OUTPUT
+_POSITIV
+_NO_SET
+_xDRILL_PUNCH
 _EXPRESSION
 _POSITIV
 _OUTPUTS : 1
