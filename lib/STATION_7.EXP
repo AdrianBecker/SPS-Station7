@@ -151,7 +151,7 @@ _EMPTY
 _NETWORK
 stateMachine
 _COMMENT
-'Saves and outputs the current machine state, increments if a transitional condition is met.'
+'Saves and outputs the current machine state, increments if the corresponding transitional condition is met, returning back to state 0 from state 8. If the jump flag is set, steps 5,6 and 7 are skipped.'
 _END_COMMENT
 _FUNCTIONBLOCK
 seqCtrl
