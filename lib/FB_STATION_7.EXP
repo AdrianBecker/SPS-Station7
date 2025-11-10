@@ -5,48 +5,48 @@
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK fb_station_7
 VAR_INPUT
-	xEMERGENCY								:	BOOL;
-	xPB_START									:	BOOL;
-	xSENSOR_ROTARY_STEP					:	BOOL;
-	xSENSOR_PART_START_POS				:	BOOL;
-	xSENSOR_PART_END_POS					:	BOOL;
-	xSENSOR_PUNCH_PROXIMITY				:	BOOL;
-	xSENSOR_PUNCH_FULLY_EXTENDED	:	BOOL;
-	xSENSOR_DRILL_PROXIMITY				:	BOOL;
-	xSENSOR_DRILL_UPPER_LIMIT			:	BOOL;
-	xSENSOR_DRILL_LOWER_LIMIT			:	BOOL;
-	xHANDSHAKE_START						:	BOOL;
-	xHANDSHAKE_NEXT_BUSY					:	BOOL;
+	notaus								:	BOOL;
+	startTaster							:	BOOL;
+	sensor_rotaryStep				:	BOOL;
+	sensor_partStartPos				:	BOOL;
+	sensor_partEndPos				:	BOOL;
+	sensor_punchProximity			:	BOOL;
+	sensor_punchFullyExtended		:	BOOL;
+	sensor_drillProximity				:	BOOL;
+	sensor_drillUpperLimit			:	BOOL;
+	sensor_drillLowerLimit			:	BOOL;
+	handshake_start					:	BOOL;
+	handshake_nextBusy				:	BOOL;
 END_VAR
 VAR_OUTPUT
-	_xROTARY_MOTOR					:	BOOL;
-	_xPUNCH								:	BOOL;
-	_xLOWER_DRILL						:	BOOL;
-	_xRAISE_DRILL						:	BOOL;
-	_xDRILL								:	BOOL;
-	_xDRILL_PUNCH						:	BOOL;
-	_xIND_EMERGENCY					:	BOOL;
-	_xIND_INIT_POS						:	BOOL;
-	_xIND_PB_START					:	BOOL;
-	_xIND_STATE_0						:	BOOL;
-	_xIND_STATE_1						:	BOOL;
-	_xIND_STATE_2						:	BOOL;
-	_xIND_STATE_3						:	BOOL;
-	_xIND_STATE_4						:	BOOL;
-	_xIND_STATE_5						:	BOOL;
-	_xIND_STATE_6						:	BOOL;
-	_xIND_STATE_7						:	BOOL;
-	_xIND_STATE_8						:	BOOL;
-	_xHANDSHAKE_BUSY				:	BOOL;
-	_xHANDSHAKE_START_NEXT		:	BOOL;
+	aktor_rotaryMotor					:	BOOL;
+	aktor_punch						:	BOOL;
+	aktor_lowerDrill					:	BOOL;
+	aktor_raiseDrill					:	BOOL;
+	aktor_drill							:	BOOL;
+	aktor_drillPunch					:	BOOL;
+	aktor_emergencyIndicator		:	BOOL;
+	aktor_initPosIndicator				:	BOOL;
+	aktor_pbStartIndicator			:	BOOL;
+	aktor_lampState0					:	BOOL;
+	aktor_lampState1					:	BOOL;
+	aktor_lampState2					:	BOOL;
+	aktor_lampState3					:	BOOL;
+	aktor_lampState4					:	BOOL;
+	aktor_lampState5					:	BOOL;
+	aktor_lampState6					:	BOOL;
+	aktor_lampState7					:	BOOL;
+	aktor_lampState8					:	BOOL;
+	handshake_busy					:	BOOL;
+	handshake_startNext				:	BOOL;
 END_VAR
 VAR
-	sr_emergencyHalt		:	SR;
-	calcTransitions			:	CALC_TRANSITIONS;
-	seqCtrl					:	SEQUENTIAL_CTRL;
-	actuatorCtrl				:	ACTUATOR_CTRL;
-	calcFlags					:	CALC_FLAGS;
-	indicatorCtrl				:	INDICATOR_CTRL;
+	sr_emergencyHalt	:	SR;
+	calcTransitions		:	CALC_TRANSITIONS;
+	seqCtrl				:	SEQUENTIAL_CTRL;
+	actuatorCtrl			:	ACTUATOR_CTRL;
+	calcFlags				:	CALC_FLAGS;
+	indicatorCtrl			:	INDICATOR_CTRL;
 END_VAR
 (* @END_DECLARATION := '0' *)
 _FBD_BODY
@@ -62,11 +62,11 @@ _BOX_EXPR : 2
 _OPERAND
 _EXPRESSION
 _POSITIV
-xEMERGENCY
+notaus
 _OPERAND
 _EXPRESSION
 _POSITIV
-xPB_START
+startTaster
 _EXPRESSION
 _POSITIV
 SR
@@ -88,11 +88,11 @@ _BOX_EXPR : 2
 _OPERAND
 _EXPRESSION
 _POSITIV
-xPB_START
+startTaster
 _OPERAND
 _EXPRESSION
 _POSITIV
-xHANDSHAKE_START
+handshake_start
 _EXPRESSION
 _POSITIV
 OR
@@ -103,19 +103,19 @@ calcFlags._xFLAG_BUSY
 _OPERAND
 _EXPRESSION
 _POSITIV
-xSENSOR_ROTARY_STEP
+startTaster
 _OPERAND
 _EXPRESSION
 _POSITIV
-xSENSOR_PART_START_POS
+sensor_partStartPos
 _OPERAND
 _EXPRESSION
 _POSITIV
-xSENSOR_PUNCH_PROXIMITY
+sensor_punchProximity
 _OPERAND
 _EXPRESSION
 _POSITIV
-xSENSOR_PUNCH_FULLY_EXTENDED
+sensor_punchFullyExtended
 _OPERAND
 _EXPRESSION
 _POSITIV
@@ -127,15 +127,15 @@ T#2s
 _OPERAND
 _EXPRESSION
 _POSITIV
-xSENSOR_DRILL_PROXIMITY
+sensor_drillProximity
 _OPERAND
 _EXPRESSION
 _POSITIV
-xSENSOR_DRILL_UPPER_LIMIT
+sensor_drillUpperLimit
 _OPERAND
 _EXPRESSION
 _POSITIV
-xSENSOR_DRILL_LOWER_LIMIT
+sensor_drillLowerLimit
 _OPERAND
 _EXPRESSION
 _POSITIV
@@ -143,7 +143,7 @@ T#5s
 _OPERAND
 _EXPRESSION
 _POSITIV
-xSENSOR_PART_END_POS
+sensor_partEndPos
 _EXPRESSION
 _POSITIV
 CALC_TRANSITIONS
@@ -264,30 +264,30 @@ _OUTPUTS : 5
 _OUTPUT
 _POSITIV
 _NO_SET
-_xPUNCH
+aktor_punch
 _OUTPUT
 _POSITIV
 _NO_SET
-_xLOWER_DRILL
+aktor_lowerDrill
 _OUTPUT
 _POSITIV
 _NO_SET
-_xRAISE_DRILL
+aktor_raiseDrill
 _OUTPUT
 _POSITIV
 _NO_SET
-_xDRILL
+aktor_drill
 _OUTPUT
 _POSITIV
 _NO_SET
-_xDRILL_PUNCH
+aktor_drillPunch
 _EXPRESSION
 _POSITIV
 _OUTPUTS : 1
 _OUTPUT
 _POSITIV
 _NO_SET
-_xROTARY_MOTOR
+aktor_rotaryMotor
 _NETWORK
 flags
 _COMMENT
@@ -308,15 +308,15 @@ FALSE
 _OPERAND
 _EXPRESSION
 _POSITIV
-xSENSOR_PART_START_POS
+sensor_partStartPos
 _OPERAND
 _EXPRESSION
 _POSITIV
-xSENSOR_PUNCH_FULLY_EXTENDED
+sensor_punchFullyExtended
 _OPERAND
 _EXPRESSION
 _POSITIV
-xSENSOR_PART_END_POS
+sensor_partEndPos
 _EXPRESSION
 _POSITIV
 CALC_FLAGS
@@ -324,7 +324,7 @@ _OUTPUTS : 2
 _OUTPUT
 _POSITIV
 _NO_SET
-_xHANDSHAKE_START_NEXT
+handshake_startNext
 _OUTPUT
 _POSITIV
 _NO_SET
@@ -335,7 +335,7 @@ _OUTPUTS : 1
 _OUTPUT
 _POSITIV
 _NO_SET
-_xHANDSHAKE_BUSY
+handshake_busy
 _NETWORK
 stateIndicator
 _COMMENT
@@ -352,7 +352,7 @@ seqCtrl._iSTATE
 _OPERAND
 _EXPRESSION
 _POSITIV
-xEMERGENCY
+notaus
 _OPERAND
 _EXPRESSION
 _POSITIV
@@ -360,11 +360,11 @@ sr_emergencyHalt.Q1
 _OPERAND
 _EXPRESSION
 _POSITIV
-xSENSOR_PART_START_POS
+sensor_partStartPos
 _OPERAND
 _EXPRESSION
 _POSITIV
-xSENSOR_DRILL_UPPER_LIMIT
+sensor_drillUpperLimit
 _EXPRESSION
 _POSITIV
 INDICATOR_CTRL
@@ -372,53 +372,53 @@ _OUTPUTS : 11
 _OUTPUT
 _POSITIV
 _NO_SET
-_xIND_INIT_POS
+aktor_initPosIndicator
 _OUTPUT
 _POSITIV
 _NO_SET
-_xIND_PB_START
+aktor_pbStartIndicator
 _OUTPUT
 _POSITIV
 _NO_SET
-_xIND_STATE_0
+aktor_lampState0
 _OUTPUT
 _POSITIV
 _NO_SET
-_xIND_STATE_1
+aktor_lampState1
 _OUTPUT
 _POSITIV
 _NO_SET
-_xIND_STATE_2
+aktor_lampState2
 _OUTPUT
 _POSITIV
 _NO_SET
-_xIND_STATE_3
+aktor_lampState3
 _OUTPUT
 _POSITIV
 _NO_SET
-_xIND_STATE_4
+aktor_lampState4
 _OUTPUT
 _POSITIV
 _NO_SET
-_xIND_STATE_5
+aktor_lampState5
 _OUTPUT
 _POSITIV
 _NO_SET
-_xIND_STATE_6
+aktor_lampState6
 _OUTPUT
 _POSITIV
 _NO_SET
-_xIND_STATE_7
+aktor_lampState7
 _OUTPUT
 _POSITIV
 _NO_SET
-_xIND_STATE_8
+aktor_lampState8
 _EXPRESSION
 _POSITIV
 _OUTPUTS : 1
 _OUTPUT
 _POSITIV
 _NO_SET
-_xIND_EMERGENCY
+aktor_emergencyIndicator
 
 END_FUNCTION_BLOCK
