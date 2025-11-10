@@ -5,6 +5,7 @@
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK fb_station_7
 VAR_INPUT
+	blinkTakt							:	BOOL;
 	notaus								:	BOOL;
 	startTaster							:	BOOL;
 	sensor_rotaryStep				:	BOOL;
@@ -339,16 +340,20 @@ handshake_busy
 _NETWORK
 stateIndicator
 _COMMENT
-'Lights corresponding light for each state (used mainly for debugging)'
+'Controls Indicator lights.'
 _END_COMMENT
 _ASSIGN
 _FUNCTIONBLOCK
 indicatorCtrl
-_BOX_EXPR : 5
+_BOX_EXPR : 6
 _OPERAND
 _EXPRESSION
 _POSITIV
 seqCtrl._iSTATE
+_OPERAND
+_EXPRESSION
+_POSITIV
+blinkTakt
 _OPERAND
 _EXPRESSION
 _POSITIV
