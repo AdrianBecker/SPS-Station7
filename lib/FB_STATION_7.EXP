@@ -3,7 +3,7 @@
 (* @PATH := '' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION_BLOCK STATION_7
+FUNCTION_BLOCK fb_station_7
 VAR_INPUT
 	xEMERGENCY								:	BOOL;
 	xPB_START									:	BOOL;
