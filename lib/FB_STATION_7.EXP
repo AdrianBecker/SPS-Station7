@@ -30,15 +30,6 @@ VAR_OUTPUT
 	aktor_emergencyIndicator		:	BOOL;
 	aktor_initPosIndicator				:	BOOL;
 	aktor_pbStartIndicator			:	BOOL;
-	aktor_lampState0					:	BOOL;
-	aktor_lampState1					:	BOOL;
-	aktor_lampState2					:	BOOL;
-	aktor_lampState3					:	BOOL;
-	aktor_lampState4					:	BOOL;
-	aktor_lampState5					:	BOOL;
-	aktor_lampState6					:	BOOL;
-	aktor_lampState7					:	BOOL;
-	aktor_lampState8					:	BOOL;
 	handshake_busy					:	BOOL;
 	handshake_startNext				:	BOOL;
 END_VAR
@@ -387,7 +378,7 @@ sensor_drillUpperLimit
 _EXPRESSION
 _POSITIV
 INDICATOR_CTRL
-_OUTPUTS : 11
+_OUTPUTS : 2
 _OUTPUT
 _POSITIV
 _NO_SET
@@ -396,42 +387,6 @@ _OUTPUT
 _POSITIV
 _NO_SET
 aktor_pbStartIndicator
-_OUTPUT
-_POSITIV
-_NO_SET
-aktor_lampState0
-_OUTPUT
-_POSITIV
-_NO_SET
-aktor_lampState1
-_OUTPUT
-_POSITIV
-_NO_SET
-aktor_lampState2
-_OUTPUT
-_POSITIV
-_NO_SET
-aktor_lampState3
-_OUTPUT
-_POSITIV
-_NO_SET
-aktor_lampState4
-_OUTPUT
-_POSITIV
-_NO_SET
-aktor_lampState5
-_OUTPUT
-_POSITIV
-_NO_SET
-aktor_lampState6
-_OUTPUT
-_POSITIV
-_NO_SET
-aktor_lampState7
-_OUTPUT
-_POSITIV
-_NO_SET
-aktor_lampState8
 _EXPRESSION
 _POSITIV
 _OUTPUTS : 1
