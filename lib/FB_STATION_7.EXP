@@ -35,6 +35,7 @@ VAR_OUTPUT
 END_VAR
 VAR
 	sr_safety				:	SR;
+	ton_rotaryTimeout		:	TON;
 	calcTransitions		:	CALC_TRANSITIONS;
 	seqCtrl				:	SEQUENTIAL_CTRL;
 	actuatorCtrl			:	ACTUATOR_CTRL;
@@ -52,10 +53,19 @@ _END_COMMENT
 _FUNCTIONBLOCK
 sr_safety
 _BOX_EXPR : 2
+_OPERATOR
+_BOX_EXPR : 2
 _OPERAND
 _EXPRESSION
 _POSITIV
 notaus
+_OPERAND
+_EXPRESSION
+_POSITIV
+ton_rotaryTimeout.Q
+_EXPRESSION
+_POSITIV
+OR
 _OPERATOR
 _BOX_EXPR : 2
 _OPERAND
@@ -247,6 +257,9 @@ actuators
 _COMMENT
 'Controls which actuators are active in each state, all actuators get turned off in case of an emergency.'
 _END_COMMENT
+_FUNCTIONBLOCK
+ton_rotaryTimeout
+_BOX_EXPR : 2
 _ASSIGN
 _FUNCTIONBLOCK
 actuatorCtrl
@@ -294,6 +307,18 @@ _OUTPUT
 _POSITIV
 _NO_SET
 aktor_rotaryMotor
+_OPERAND
+_EXPRESSION
+_POSITIV
+T#12s
+_EXPRESSION
+_POSITIV
+TON
+_OUTPUTS : 1
+_OUTPUT
+_POSITIV
+_NO_SET
+_EMPTY
 _NETWORK
 flags
 _COMMENT
