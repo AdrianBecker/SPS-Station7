@@ -52,12 +52,12 @@ _xIND_EMERGENCY
 _NETWORK
 
 _COMMENT
-'The machine is in its initial position in state 0 (ready for start) or state 8 (waiting for part to be picked up).'
+'The machine is in its initial position in state 0 (ready for start), state 8 (waiting for part to be picked up) or state 9 (resetting to state 0).'
 _END_COMMENT
 _ASSIGN
 _ASSIGN
 _OPERATOR
-_BOX_EXPR : 2
+_BOX_EXPR : 3
 _OPERATOR
 _BOX_EXPR : 2
 _OPERAND
@@ -81,6 +81,19 @@ _OPERAND
 _EXPRESSION
 _POSITIV
 8
+_EXPRESSION
+_POSITIV
+EQ
+_OPERATOR
+_BOX_EXPR : 2
+_OPERAND
+_EXPRESSION
+_POSITIV
+iSTATE
+_OPERAND
+_EXPRESSION
+_POSITIV
+9
 _EXPRESSION
 _POSITIV
 EQ
