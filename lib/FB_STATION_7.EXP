@@ -48,7 +48,7 @@ _NETWORKS : 6
 _NETWORK
 emergencyHalt
 _COMMENT
-'Sets when Emergency is active, resets if it$'s not and the start button is pressed. Blocks moving parts from moving.'
+'Sets when emergency is active or the rotary times out (e.g. when the processed part has fallen out). It resets on a start pulse if this condition is no longer met. Blocks moving parts from moving.'
 _END_COMMENT
 _FUNCTIONBLOCK
 sr_safety
@@ -255,7 +255,7 @@ _OUTPUTS : 0
 _NETWORK
 actuators
 _COMMENT
-'Controls which actuators are active in each state, all actuators get turned off in case of an emergency.'
+'Controls which actuators are active in each state, all actuators get turned off in case of an emergency. The TON will set the safety SR (e.g. when a part has fallen out).'
 _END_COMMENT
 _FUNCTIONBLOCK
 ton_rotaryTimeout
