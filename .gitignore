@@ -6,3 +6,4 @@
 *.precompilecache
 *.opt
 *.DFR
+requirements/
