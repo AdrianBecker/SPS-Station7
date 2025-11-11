@@ -8,7 +8,7 @@ VAR_INPUT
 	iSTATE									:	INT;
 	xCLOCK								:	BOOL;
 	xEMERGENCY						:	BOOL;
-	xEMERGENCY_HALT					:	BOOL;
+	xSAFETY								:	BOOL;
 	xSENSOR_PART_START_POS		:	BOOL;
 	xSENSOR_DRILL_UPPER_LIMIT	:	BOOL;
 END_VAR
@@ -113,7 +113,7 @@ _xIND_INIT_POS
 _NETWORK
 
 _COMMENT
-'PB start should blink if start is possible (i.e. in state 0 and part in start pos and drill fully raised or in case of a recently released emergency signal when halt is still active). Emergency turns the light off in all cases.'
+'PB start should blink if start is possible (i.e. in state 0 and part in start pos and drill fully raised or in case of a recently released emergency signal when the safety SR is still active). Emergency turns the light off in all cases.'
 _END_COMMENT
 _ASSIGN
 _OPERATOR
@@ -153,7 +153,7 @@ AND
 _OPERAND
 _EXPRESSION
 _POSITIV
-xEMERGENCY_HALT
+xSAFETY
 _EXPRESSION
 _POSITIV
 OR
@@ -173,7 +173,7 @@ xInitPos
 _OPERAND
 _EXPRESSION
 _NEGATIV
-xEMERGENCY_HALT
+xSAFETY
 _EXPRESSION
 _POSITIV
 AND
@@ -197,7 +197,7 @@ _xIND_PB_START
 _NETWORK
 
 _COMMENT
-'Indicate state 0, which is also the only state where a start pulse is allowed.'
+'These state lights are mainly used for debugging and can be viewed on the master PLCs IO module.'
 _END_COMMENT
 _ASSIGN
 _OPERATOR

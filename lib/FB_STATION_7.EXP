@@ -8,6 +8,7 @@ VAR_INPUT
 	blinkTakt							:	BOOL;
 	notaus								:	BOOL;
 	startTaster							:	BOOL;
+	reset								:	BOOL;
 	sensor_rotaryStep				:	BOOL;
 	sensor_partStartPos				:	BOOL;
 	sensor_partEndPos				:	BOOL;
@@ -42,7 +43,7 @@ VAR_OUTPUT
 	handshake_startNext				:	BOOL;
 END_VAR
 VAR
-	sr_emergencyHalt	:	SR;
+	sr_safety				:	SR;
 	calcTransitions		:	CALC_TRANSITIONS;
 	seqCtrl				:	SEQUENTIAL_CTRL;
 	actuatorCtrl			:	ACTUATOR_CTRL;
@@ -55,19 +56,28 @@ _NETWORKS : 6
 _NETWORK
 emergencyHalt
 _COMMENT
-'Sets when Emergency is active, resets if it$'s not and the start button is pressed.'
+'Sets when Emergency is active, resets if it$'s not and the start button is pressed. Blocks moving parts from moving.'
 _END_COMMENT
 _FUNCTIONBLOCK
-sr_emergencyHalt
+sr_safety
 _BOX_EXPR : 2
 _OPERAND
 _EXPRESSION
 _POSITIV
 notaus
+_OPERATOR
+_BOX_EXPR : 2
 _OPERAND
 _EXPRESSION
 _POSITIV
 startTaster
+_OPERAND
+_EXPRESSION
+_POSITIV
+handshake_start
+_EXPRESSION
+_POSITIV
+OR
 _EXPRESSION
 _POSITIV
 SR
@@ -100,7 +110,7 @@ OR
 _OPERAND
 _EXPRESSION
 _POSITIV
-sr_emergencyHalt.Q1
+sr_safety.Q1
 _OPERAND
 _EXPRESSION
 _POSITIV
@@ -196,7 +206,7 @@ _BOX_EXPR : 11
 _OPERAND
 _EXPRESSION
 _POSITIV
-FALSE
+reset
 _OPERAND
 _EXPRESSION
 _POSITIV
@@ -253,7 +263,7 @@ _BOX_EXPR : 3
 _OPERAND
 _EXPRESSION
 _POSITIV
-sr_emergencyHalt.Q1
+sr_safety.Q1
 _OPERAND
 _EXPRESSION
 _POSITIV
@@ -365,7 +375,7 @@ notaus
 _OPERAND
 _EXPRESSION
 _POSITIV
-sr_emergencyHalt.Q1
+sr_safety.Q1
 _OPERAND
 _EXPRESSION
 _POSITIV
