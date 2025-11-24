@@ -8,6 +8,7 @@ VAR_INPUT
 	blinkTakt							:	BOOL;
 	notaus								:	BOOL;
 	startTaster							:	BOOL;
+	startGlobal						:	BOOL;
 	reset								:	BOOL;
 	sensor_rotaryStep				:	BOOL;
 	sensor_partStartPos				:	BOOL;
@@ -34,6 +35,7 @@ VAR_OUTPUT
 	handshake_startNext				:	BOOL;
 END_VAR
 VAR
+	rs_running			:	RS;
 	sr_safety				:	SR;
 	ton_rotaryTimeout		:	TON;
 	calcTransitions		:	CALC_TRANSITIONS;
@@ -44,7 +46,36 @@ VAR
 END_VAR
 (* @END_DECLARATION := '0' *)
 _FBD_BODY
-_NETWORKS : 6
+_NETWORKS : 7
+_NETWORK
+
+_COMMENT
+''
+_END_COMMENT
+_FUNCTIONBLOCK
+rs_running
+_BOX_EXPR : 2
+_OPERATOR
+_BOX_EXPR : 2
+_OPERAND
+_EXPRESSION
+_POSITIV
+startTaster
+_OPERAND
+_EXPRESSION
+_POSITIV
+startGlobal
+_EXPRESSION
+_POSITIV
+OR
+_OPERAND
+_EXPRESSION
+_POSITIV
+notaus
+_EXPRESSION
+_POSITIV
+RS
+_OUTPUTS : 0
 _NETWORK
 emergencyHalt
 _COMMENT
@@ -67,7 +98,7 @@ _EXPRESSION
 _POSITIV
 OR
 _OPERATOR
-_BOX_EXPR : 2
+_BOX_EXPR : 3
 _OPERAND
 _EXPRESSION
 _POSITIV
@@ -76,6 +107,10 @@ _OPERAND
 _EXPRESSION
 _POSITIV
 handshake_start
+_OPERAND
+_EXPRESSION
+_POSITIV
+startGlobal
 _EXPRESSION
 _POSITIV
 OR
@@ -90,7 +125,7 @@ _COMMENT
 _END_COMMENT
 _FUNCTIONBLOCK
 calcTransitions
-_BOX_EXPR : 16
+_BOX_EXPR : 17
 _OPERAND
 _EXPRESSION
 _POSITIV
@@ -99,6 +134,10 @@ _OPERAND
 _EXPRESSION
 _POSITIV
 startTaster
+_OPERAND
+_EXPRESSION
+_POSITIV
+startGlobal
 _OPERAND
 _EXPRESSION
 _POSITIV
@@ -374,7 +413,7 @@ _END_COMMENT
 _ASSIGN
 _FUNCTIONBLOCK
 indicatorCtrl
-_BOX_EXPR : 5
+_BOX_EXPR : 4
 _OPERAND
 _EXPRESSION
 _POSITIV
@@ -386,15 +425,11 @@ notaus
 _OPERAND
 _EXPRESSION
 _POSITIV
-sr_safety.Q1
+rs_running.Q1
 _OPERAND
 _EXPRESSION
 _POSITIV
 blinkTakt
-_OPERAND
-_EXPRESSION
-_POSITIV
-calcFlags._xFLAG_BUSY
 _EXPRESSION
 _POSITIV
 INDICATOR_CTRL
