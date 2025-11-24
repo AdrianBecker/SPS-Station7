@@ -7,9 +7,9 @@ FUNCTION_BLOCK INDICATOR_CTRL
 VAR_INPUT
 	iSTATE						:	INT;
 	xEMERGENCY			:	BOOL;
-	xSTART					:	BOOL;
-	xHANDSHAKE_START	:	BOOL;
+	xSAFETY					:	BOOL;
 	xCLOCK					:	BOOL;
+	xBUSY				:	BOOL;
 END_VAR
 VAR_OUTPUT
 	_xIND_EMERGENCY			:	BOOL;
@@ -18,11 +18,10 @@ VAR_OUTPUT
 END_VAR
 VAR
 	xInitPos		:	BOOL;
-	rs_running	:	RS;
 END_VAR
 (* @END_DECLARATION := '0' *)
 _FBD_BODY
-_NETWORKS : 4
+_NETWORKS : 3
 _NETWORK
 
 _COMMENT
@@ -117,50 +116,48 @@ _xIND_INIT_POS
 _NETWORK
 
 _COMMENT
-'Sets an RS to signal that the whole production line is either running or in safety halt after an emergency was triggered.'
-_END_COMMENT
-_FUNCTIONBLOCK
-rs_running
-_BOX_EXPR : 2
-_OPERATOR
-_BOX_EXPR : 2
-_OPERAND
-_EXPRESSION
-_POSITIV
-xSTART
-_OPERAND
-_EXPRESSION
-_POSITIV
-xHANDSHAKE_START
-_EXPRESSION
-_POSITIV
-OR
-_OPERAND
-_EXPRESSION
-_POSITIV
-xEMERGENCY
-_EXPRESSION
-_POSITIV
-RS
-_OUTPUTS : 0
-_NETWORK
-
-_COMMENT
-'PB should blink if emergency isn$'t engaged and the procution line isn$'t running and should light up permanently if rs_running is set.'
+'PB should blink if emergency isn$'t engaged and the procution line isn$'t running and should light up permanently if busy flag is set.'
 _END_COMMENT
 _ASSIGN
 _OPERATOR
 _BOX_EXPR : 2
 _OPERATOR
 _BOX_EXPR : 2
+_OPERATOR
+_BOX_EXPR : 2
+_OPERATOR
+_BOX_EXPR : 2
+_OPERAND
+_EXPRESSION
+_POSITIV
+xInitPos
+_OPERAND
+_EXPRESSION
+_POSITIV
+xSAFETY
+_EXPRESSION
+_POSITIV
+OR
 _OPERAND
 _EXPRESSION
 _POSITIV
 xCLOCK
+_EXPRESSION
+_POSITIV
+AND
+_OPERATOR
+_BOX_EXPR : 2
 _OPERAND
 _EXPRESSION
 _POSITIV
-rs_running.Q1
+xBUSY
+_OPERAND
+_EXPRESSION
+_NEGATIV
+xSAFETY
+_EXPRESSION
+_POSITIV
+AND
 _EXPRESSION
 _POSITIV
 OR
