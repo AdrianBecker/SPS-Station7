@@ -25,7 +25,7 @@ _NETWORKS : 3
 _NETWORK
 
 _COMMENT
-'Reset button should blink in case of emergency, indicating that a reset is needed.'
+'Reset button should blink in case of emergency, indicating that a reset at this station is needed. It should light up continuously if emergency is engaged in another station.'
 _END_COMMENT
 _ASSIGN
 _OPERATOR
@@ -43,10 +43,19 @@ xCLOCK
 _EXPRESSION
 _POSITIV
 AND
+_OPERATOR
+_BOX_EXPR : 2
+_OPERAND
+_EXPRESSION
+_NEGATIV
+xEMERGENCY
 _OPERAND
 _EXPRESSION
 _POSITIV
 xEMERGENCY_GLOBAL
+_EXPRESSION
+_POSITIV
+AND
 _EXPRESSION
 _POSITIV
 OR
